@@ -35,6 +35,8 @@ namespace Actio.Services.Activities
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddLogging();
+
             services.AddMongoDb(Configuration);
             services.AddRabbitMq(Configuration);
             services.AddScoped<ICommandHandler<CreateActivity>, CreateActivityHandler>();

@@ -5,6 +5,7 @@ using Actio.Common.RabbitMq;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using RawRabbit;
 using System;
 using System.Collections.Generic;
@@ -77,19 +78,28 @@ namespace Actio.Common.Services
 
             public BusBuilder SubscribeToCommand<TCommand> () where TCommand : ICommand
             {
-                var handler = (ICommandHandler<TCommand>)
-                    _webHost.Services.GetService(typeof(ICommandHandler<TCommand>));
-                _bus.WithCommandHandlerAsync(handler);
-
+                var serviceScopeFactory = _webHost.Services.GetService<IServiceScopeFactory>();
+                using (var scope = serviceScopeFactory.CreateScope())
+                {
+                    var handler = (ICommandHandler<TCommand>)
+                    //_webHost.Services.GetService(typeof(ICommandHandler<TCommand>));
+                    scope.ServiceProvider.GetService(typeof(ICommandHandler<TCommand>));
+                    
+                    _bus.WithCommandHandlerAsync(handler);
+                }
                 return this;
             }
 
             public BusBuilder SubscribeToEvent<TEvent>() where TEvent : IEvent
             {
-                var handler = (IEventHandler<TEvent>)
-                    _webHost.Services.GetService(typeof(IEventHandler<TEvent>));
-                _bus.WithEventHandlerAsync(handler);
-
+                var serviceScopeFactory = _webHost.Services.GetService<IServiceScopeFactory>();
+                using (var scope = serviceScopeFactory.CreateScope())
+                {
+                    var handler = (IEventHandler<TEvent>)
+                    //_webHost.Services.GetService(typeof(IEventHandler<TEvent>));
+                    scope.ServiceProvider.GetService(typeof(IEventHandler<TEvent>));
+                    _bus.WithEventHandlerAsync(handler);
+                }
                 return this;
             }
 

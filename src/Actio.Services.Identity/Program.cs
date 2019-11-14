@@ -16,16 +16,17 @@ namespace Actio.Services.Identity
     {
         public static void Main(string[] args)
         {
-            //CreateWebHostBuilder(args).Build().Run();
+            //reateWebHostBuilder(args).Build().Run();
             ServiceHost.Create<Startup>(args)
                 .UseRabbitMq()
-                .SubscribeToCommand<CreateActivity>()
+                .SubscribeToCommand<CreateUser>()
                 .Build()
                 .Run();
+
         }
 
-        //public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        //    WebHost.CreateDefaultBuilder(args)
-        //        .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>();
     }
 }

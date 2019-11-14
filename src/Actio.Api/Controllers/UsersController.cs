@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Actio.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly IBusClient _busClient;
