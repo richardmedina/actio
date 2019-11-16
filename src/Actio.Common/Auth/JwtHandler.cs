@@ -39,23 +39,23 @@ namespace Actio.Common.Auth
             var centuryBegin = new DateTime(1970, 1, 1).ToUniversalTime();
             var exp = (long)(new TimeSpan(expires.Ticks - centuryBegin.Ticks).TotalSeconds); 
             var now = (long)(new TimeSpan(nowUtc.Ticks - centuryBegin.Ticks).TotalSeconds);
-            var payload = new JwtPayload
-            {
-                { "sub", userId },
-                { "iss", _options.Issuer },
-                { "iat", nowUtc },
-                { "exp", expires},
-                { "unique_name", userId}
-            };
+            //var payload = new JwtPayload
+            //{
+            //    { "sub", userId },
+            //    { "iss", _options.Issuer },
+            //    { "iat", nowUtc },
+            //    { "exp", expires},
+            //    { "unique_name", userId}
+            //};
 
-            var jwt = new JwtSecurityToken(_jwtHeader, payload);
-            //var jwt = new JwtSecurityToken ( 
-            //    issuer: _options.Issuer,
-            //    audience: null,
-            //    claims: null,
-            //    expires: expires,
-            //    signingCredentials: _signingCredentials   
-            //);
+            //var jwt = new JwtSecurityToken(_jwtHeader, payload);
+            var jwt = new JwtSecurityToken(
+                issuer: _options.Issuer,
+                audience: null,
+                claims: null,
+                expires: expires,
+                signingCredentials: _signingCredentials
+            );
 
             var token = _jwtSecurityTokenHandler.WriteToken(jwt);
 
