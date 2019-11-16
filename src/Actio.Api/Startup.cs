@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Actio.Api.Handlers;
+using Actio.Common.Auth;
 using Actio.Common.Events;
 using Actio.Common.Handlers;
 using Actio.Common.RabbitMq;
@@ -30,7 +31,10 @@ namespace Actio.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
             services.AddRabbitMq(Configuration);
+            services.AddJwt(Configuration);
+
             services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
 
         }
