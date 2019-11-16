@@ -44,7 +44,7 @@ namespace Actio.Common.Auth
                 { "sub", userId },
                 { "iss", _options.Issuer },
                 { "iat", now },
-                { "exp", exp},
+                { "exp", expires},
                 { "unique_name", userId}
             };
 
