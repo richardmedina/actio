@@ -43,19 +43,20 @@ namespace Actio.Common.Auth
             {
                 { "sub", userId },
                 { "iss", _options.Issuer },
-                { "iat", now },
-                { "exp", exp},
+                { "iat", nowUtc },
+                { "exp", expires},
                 { "unique_name", userId}
             };
 
-            //var jwt = new JwtSecurityToken(_jwtHeader, payload);
-            var jwt = new JwtSecurityToken ( 
-                issuer: _options.Issuer,
-                audience: null,
-                claims: null,
-                expires: expires,
-                signingCredentials: _signingCredentials   
-            );
+            var jwt = new JwtSecurityToken(_jwtHeader, payload);
+            //var jwt = new JwtSecurityToken ( 
+            //    issuer: _options.Issuer,
+            //    audience: null,
+            //    claims: null,
+            //    expires: expires,
+            //    signingCredentials: _signingCredentials   
+            //);
+
             var token = _jwtSecurityTokenHandler.WriteToken(jwt);
 
             return new JsonWebToken
