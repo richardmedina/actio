@@ -30,7 +30,8 @@ namespace Actio.Api.Controllers
         }
 
         [HttpGet("secure")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public IActionResult GetSecure() => Content("Hello Secure World!");
     }
 }

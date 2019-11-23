@@ -6,13 +6,13 @@ namespace Actio.Common.Events
 {
     public class ActivityCreated : IAuthenticatedEvent
     {
-        public Guid Id { get; }
-        public Guid UserId { get; }
+        public Guid Id { get; protected set; }
+        public Guid UserId { get; protected set; }
 
-        public string Category { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public DateTime CreatedAt { get; }
+        public string Category { get; protected set; }
+        public string Name { get; protected set; }
+        public string Description { get; protected set; }
+        public DateTime CreatedAt { get; protected set; }
 
         protected ActivityCreated()
         {
