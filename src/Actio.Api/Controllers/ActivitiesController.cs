@@ -27,8 +27,8 @@ namespace Actio.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             await Task.CompletedTask;
-            _logger.LogInformation("ActivitiesController.GetAll with userId: ", User.Identity.Name);
-
+            _logger.LogInformation($"ActivitiesController.GetAll with userId: {User.Identity.Name}");
+            
             return Ok();
         }
 
