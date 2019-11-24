@@ -29,7 +29,7 @@ namespace Actio.Services.Activities.Services
 
             await Task.WhenAll(
                 categories.Select(c =>
-                    _categoryRepository.AddAsync(new Category(c))
+                    _categoryRepository.AddAsync(new Category(Guid.NewGuid(), c))
                 )
             );
         }

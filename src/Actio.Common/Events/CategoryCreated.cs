@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Actio.Services.Activities.Domain.Models
+namespace Actio.Common.Events
 {
-    public class Category
+    public class CategoryCreated : IEvent
     {
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
 
-        protected Category()
-        {
-        }
-
-        public Category(Guid id, string name)
+        public CategoryCreated(Guid id, string name)
         {
             Id = id;
             Name = name;
