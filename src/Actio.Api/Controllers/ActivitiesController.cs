@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RawRabbit;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,25 @@ using System.Threading.Tasks;
 
 namespace Actio.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ActivitiesController : ControllerBase
     {
         private readonly IBusClient _busClient;
-        public ActivitiesController(IBusClient busClient)
+        private readonly ILogger _logger;
+        public ActivitiesController(IBusClient busClient, ILogger<ActivitiesController> logger)
         {
             _busClient = busClient;
+            _logger = logger;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            await Task.CompletedTask;
+            _logger.LogInformation("ActivitiesController.GetAll with userId: ", User.Identity.Name);
+
+            return Ok();
         }
 
         [HttpPost]
@@ -30,8 +43,6 @@ namespace Actio.Api.Controllers
         }
 
         [HttpGet("secure")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [Authorize]
         public IActionResult GetSecure() => Content("Hello Secure World!");
     }
 }
