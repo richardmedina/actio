@@ -27,7 +27,7 @@ namespace Actio.Services.Activities.Repositories
         public async Task<Category> GetAsync(string name) =>
             await Collection
                 .AsQueryable()
-                .FirstOrDefaultAsync(cat => cat.Name == name.ToLowerInvariant());
+                .FirstOrDefaultAsync(cat => cat.Name == name);
 
 
         private IMongoCollection<Category> Collection
