@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace Actio.Common.Auth
@@ -52,7 +53,9 @@ namespace Actio.Common.Auth
             var jwt = new JwtSecurityToken(
                 issuer: _options.Issuer,
                 audience: null,
-                claims: null,
+                claims: new[]{ 
+                    new Claim(ClaimTypes.Name, userId.ToString())
+                },
                 expires: expires,
                 signingCredentials: _signingCredentials
             );
