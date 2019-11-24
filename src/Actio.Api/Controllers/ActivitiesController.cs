@@ -1,4 +1,5 @@
-﻿using Actio.Common.Commands;
+﻿using Actio.Api.Repositories;
+using Actio.Common.Commands;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +18,37 @@ namespace Actio.Api.Controllers
     {
         private readonly IBusClient _busClient;
         private readonly ILogger _logger;
-        public ActivitiesController(IBusClient busClient, ILogger<ActivitiesController> logger)
+
+        private readonly IActivityRepository _activityRepository;
+
+        public ActivitiesController(IBusClient busClient, IActivityRepository activityRepository, ILogger<ActivitiesController> logger)
         {
             _busClient = busClient;
             _logger = logger;
+            _activityRepository = activityRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            await Task.CompletedTask;
-            _logger.LogInformation($"ActivitiesController.GetAll with userId: {User.Identity.Name}");
-            
-            return Ok();
+            _logger.LogInformation($"Accesing ActivitiesController.GetAll({User.Identity.Name})");
+            var activities = await _activityRepository.BrowseAsync(Guid.Parse(User.Identity.Name));
+
+            return Ok(activities);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            _logger.LogInformation($"Accesing ActivitiesController.GetAll({User.Identity.Name})");
+            var activity = await _activityRepository.GetAsync(id);
+
+            if (activity == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(activity);
         }
 
         [HttpPost]
