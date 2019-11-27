@@ -19,4 +19,4 @@ COPY ./bin/Docker .
 
 ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT docker
-ENTRYPOINT ["dotnet", "actio.Api.dll"]
+ENTRYPOINT ["dotnet", "Actio.Api.dll"]
