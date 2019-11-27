@@ -15,7 +15,7 @@
 #COPY --from=build-env /app/out .
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
-COPY ./bin/Docker
+COPY ./bin/Docker .
 
 ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT docker
